@@ -10,15 +10,25 @@ from itemadapter import ItemAdapter
 # Datetime options
 from datetime import date
 
+# Get env variables
+import os
+
+# DB Handler
+import psycopg2
+
+# URL parser
+from urllib.parse import urlparse
+
 class CurrencyexchangegtPipeline:
 
     def __init__(self):
-        import psycopg2
+        db_url = os.environ['DATABASE_URL']
+        result = urlparse(db_url)
         self.conn = psycopg2.connect(
-            user="kcvkmymglaalmz",
-            dbname="d90bkhs142ppg0",
-            host="ec2-52-0-93-3.compute-1.amazonaws.com",
-            password="a3c18a78f9a33dfa9b2dabe8f9e9bc4e3f8e9609bd70f8422ba07a00754add02"
+            user=result.username,
+            dbname=result.path[1:],
+            host=result.hostname,
+            password=result.password
         )
 
     def process_item(self, item, spider):
