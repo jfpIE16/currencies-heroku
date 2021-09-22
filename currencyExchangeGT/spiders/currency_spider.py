@@ -103,11 +103,18 @@ class CurrencySpider(scrapy.Spider):
                 }
                 yield ic_dict
             else:
-                gtc_compra = str(response.css('p::text')[2].get()).strip()
-                gtc_venta = str(response.css('p::text')[1].get()).strip()
-                gtc_dict = {
-                    'Banco': 'G&T Continental',
-                    'Compra': re.findall(self.float_filter, gtc_compra)[0],
-                    'Venta': re.findall(self.float_filter, gtc_venta)[0]
-                }
+                try:
+                    gtc_compra = str(response.css('p::text')[2].get()).strip()
+                    gtc_venta = str(response.css('p::text')[1].get()).strip()
+                    gtc_dict = {
+                        'Banco': 'G&T Continental',
+                        'Compra': re.findall(self.float_filter, gtc_compra)[0],
+                        'Venta': re.findall(self.float_filter, gtc_venta)[0]
+                    }
+                except:
+                    gtc_dict = {
+                        'Banco': 'G&T Continental',
+                        'Compra': '100',
+                        'Venta': '100'
+                    }
                 yield gtc_dict
