@@ -16,8 +16,7 @@ class CurrencySpider(scrapy.Spider):
         'https://www.chn.com.gt/',
         'https://www.ficohsa.com/gt/guatemala/tipo-cambio/',
         'https://www.bancoazteca.com.gt/BancoAztecaGua/',
-        'https://www.interbanco.com.gt/wsIntegra/js/TipoCambio.js?_=1627797271430',
-        'https://bpi.gytcontinental.com.gt/Transaction/ConsultaTasa.asp?refresh=1628477241806'
+        'https://www.interbanco.com.gt/wsIntegra/js/TipoCambio.js?_=1627797271430'
         ]
         for url in start_urls:
             yield SplashRequest(url=url, callback=self.parse)
